@@ -38,6 +38,22 @@ func Date(year int, month time.Month, day, hour, min, sec, nsec int, loc *time.L
 	return Fullerene{t: time.Date(year, month, day, hour, min, sec, nsec, loc)}
 }
 
+func (fr Fullerene) Year() int {
+	return fr.t.Year()
+}
+
+func (fr Fullerene) Month() time.Month {
+	return fr.t.Month()
+}
+
+func (fr Fullerene) Day() int {
+	return fr.t.Day()
+}
+
+func (fr Fullerene) AddDate(years int, months int, days int) Fullerene {
+	return Fullerene{t: fr.t.AddDate(years, months, days)}
+}
+
 func (fr Fullerene) IsLeapYear() bool {
 	y, _, _ := fr.Date()
 	if y%4 != 0 {
