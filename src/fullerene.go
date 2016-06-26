@@ -55,7 +55,7 @@ func (fr Fullerene) AddDate(years int, months int, days int) Fullerene {
 }
 
 func (fr Fullerene) IsLeapYear() bool {
-	y, _, _ := fr.Date()
+	y := fr.Year()
 	if y%4 != 0 {
 		return false
 	}
