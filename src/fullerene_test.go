@@ -36,3 +36,37 @@ func TestFullerene_Equal(t *testing.T) {
 	mt := Now()
 	assert.True(t, mt.Equal(mt))
 }
+
+func TestFullerene_IsLeapYear(t *testing.T) {
+	fr := Date(2016, 1, 1, 0, 0, 0, 0, &time.Location{})
+	assert.True(t, fr.IsLeapYear())
+	fr2 := Date(2000, 1, 1, 0, 0, 0, 0, &time.Location{})
+	assert.True(t, fr2.IsLeapYear())
+	fr3 := Date(1999, 1, 1, 0, 0, 0, 0, &time.Location{})
+	assert.False(t, fr3.IsLeapYear())
+	fr4 := Date(2100, 1, 1, 0, 0, 0, 0, &time.Location{})
+	assert.False(t, fr4.IsLeapYear())
+}
+
+func TestFullerene_IsLeapDay(t *testing.T) {
+	fr := Date(2016, 2, 29, 0, 0, 0, 0, &time.Location{})
+	assert.True(t, fr.IsLeapDay())
+
+	fr2 := Date(2016, 2, 28, 0, 0, 0, 0, &time.Location{})
+	assert.False(t, fr2.IsLeapDay())
+}
+
+func TestFullerene_IsBirthday(t *testing.T) {
+	emptyLocation := time.Location{}
+	fr := Date(2014, 11, 18, 0, 0, 0, 0, &emptyLocation)
+	assert.True(t, fr.IsBirthday(Date(1981, 11, 18, 0, 0, 0, 0, &emptyLocation), false))
+	assert.False(t, fr.IsBirthday(Date(1981, 11, 19, 0, 0, 0, 0, &emptyLocation), false))
+
+	frLeap := Date(1980, 2, 29, 0, 0, 0, 0, &emptyLocation)
+	assert.False(t, frLeap.IsBirthday(Date(2015, 2, 28, 0, 0, 0, 0, &emptyLocation), false))
+	assert.True(t, frLeap.IsBirthday(Date(2015, 3, 1, 0, 0, 0, 0, &emptyLocation), false))
+	assert.True(t, frLeap.IsBirthday(Date(2015, 2, 28, 0, 0, 0, 0, &emptyLocation), true))
+	assert.False(t, frLeap.IsBirthday(Date(2015, 3, 1, 0, 0, 0, 0, &emptyLocation), true))
+	assert.False(t, frLeap.IsBirthday(Date(2016, 3, 1, 0, 0, 0, 0, &emptyLocation), true))
+	assert.False(t, frLeap.IsBirthday(Date(2016, 3, 1, 0, 0, 0, 0, &emptyLocation), false))
+}
