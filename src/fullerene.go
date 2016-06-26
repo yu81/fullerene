@@ -40,13 +40,13 @@ func Date(year int, month time.Month, day, hour, min, sec, nsec int, loc *time.L
 
 func (fr Fullerene) IsLeapYear() bool {
 	y, _, _ := fr.Date()
-	if y%4 == 0 {
-		if y%100 == 0 && y%400 != 0 {
-			return false
-		}
-		return true
+	if y%4 != 0 {
+		return false
 	}
-	return false
+	if y%100 == 0 && y%400 != 0 {
+		return false
+	}
+	return true
 }
 
 func (fr Fullerene) IsLeapDay() bool {
