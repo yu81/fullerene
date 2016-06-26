@@ -58,24 +58,26 @@ func (fr Fullerene) IsLeapDay() bool {
 }
 
 func (fr Fullerene) IsBirthday(targetTime Fullerene, beforeDayIfLeap bool) bool {
-	_, m, d := fr.Date()
-	_, mm, dd := targetTime.Date()
-	if m == mm && d == dd {
+	_, m, d := fr.Date()           // birthday
+	_, mm, dd := targetTime.Date() // check if it is birthday.
+	if m == mm && d == dd && !fr.IsLeapDay() {
+		// consider leap year.
 		return true
-	}
-	// consider leap year.
-	isLeapYear := Now().IsLeapYear()
-	if !isLeapYear {
-		return false
 	}
 
 	// there are countries which a person get old at the day before leap day, and the day after in a leap year.
-	if beforeDayIfLeap {
-		if mm == 2 && dd == 28 {
-			return true
-		}
+	return fr.isBirthdayEx(targetTime, beforeDayIfLeap)
+}
+
+func (fr Fullerene) isBirthdayEx(targetTime Fullerene, beforeDayIfLeap bool) bool {
+	_, m, d := targetTime.Date()
+	if targetTime.IsLeapYear() {
+		return false
 	}
-	if mm == 3 && dd == 1 {
+	if beforeDayIfLeap && m == 2 && d == 28 {
+		return true
+	}
+	if !beforeDayIfLeap && m == 3 && d == 1 {
 		return true
 	}
 	return false
