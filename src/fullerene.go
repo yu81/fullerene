@@ -56,21 +56,12 @@ func (fr Fullerene) AddDate(years int, months int, days int) Fullerene {
 
 func (fr Fullerene) IsLeapYear() bool {
 	y := fr.Year()
-	if y%4 != 0 {
-		return false
-	}
-	if y%100 == 0 && y%400 != 0 {
-		return false
-	}
-	return true
+	return (y%4 == 0 && (y%100 != 0 || y%400 == 0))
 }
 
 func (fr Fullerene) IsLeapDay() bool {
 	_, m, d := fr.Date()
-	if m == 2 && d == 29 {
-		return true
-	}
-	return false
+	return (m == 2 && d == 29)
 }
 
 func (fr Fullerene) IsBirthday(targetTime Fullerene, beforeDayIfLeap bool) bool {
