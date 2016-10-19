@@ -89,3 +89,6 @@ func (fr Fullerene) isBirthdayEx(targetTime Fullerene, beforeDayIfLeap bool) boo
 	}
 	return false
 }
+func (fr *Fullerene) String() string {
+	return fr.t.String()
+}
