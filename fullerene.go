@@ -89,6 +89,30 @@ func (fr Fullerene) isBirthdayEx(targetTime Fullerene, beforeDayIfLeap bool) boo
 	}
 	return false
 }
+
+func (fr Fullerene) Age(targetTime Fullerene) int {
+	y, m, d := targetTime.Date()
+	age := y - fr.Year()
+	if m < fr.Month() {
+		return age - 1
+	}
+	if m > fr.Month() {
+		return age
+	}
+	// month of targetTime is equal to birthday.
+	if d <= fr.Day() {
+		return age
+	}
+	if d > fr.Day() {
+		return age - 1
+	}
+	return age
+}
+
+func (fr Fullerene) CurrentAge() int {
+	return fr.Age(Now())
+}
+
 func (fr *Fullerene) String() string {
 	return fr.t.String()
 }
