@@ -1,0 +1,16 @@
+machine:
+  pre:
+    - |
+      ver="1.7.1"
+      curl -o go.tar.gz -sL https://storage.googleapis.com/golang/go${ver}.linux-amd64.tar.gz
+      sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go.tar.gz
+      sudo chmod a+w /usr/local/go/src/
+  post:
+    - |
+      gop=`go env GOPATH`
+      echo "export GOBIN=${gop/:*//bin}" >> ~/.circlerc
+      echo "export GOSRC=${gop/:*//src}" >> ~/.circlerc
+
+test:
+  override:
+    - go test -v -cover -bench=. -benchmem ./...
