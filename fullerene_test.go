@@ -1,7 +1,10 @@
 package fullerene
 
 import (
+	"fmt"
+	libage "github.com/bearbin/go-age"
 	"github.com/stretchr/testify/assert"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -146,7 +149,60 @@ func Benchmark_Date(b *testing.B) {
 }
 
 func Benchmark_Fullerene_Age(b *testing.B) {
+	b.StopTimer()
+	f := Date(2015, 1, 1, 0, 0, 0, 0, &time.Location{})
+	b.StartTimer()
+	now := Now()
 	for i := 0; i < b.N; i++ {
-		Date(2015, 1, 1, 0, 0, 0, 0, &time.Location{})
+		f.Age(now)
+	}
+}
+
+func AgeFromString(birthday, targetDay string) int {
+	y1, _ := strconv.Atoi(birthday[0:4])
+	y2, _ := strconv.Atoi(targetDay[0:4])
+	age := y2 - y1
+	m1, _ := strconv.Atoi(birthday[4:6])
+	m2, _ := strconv.Atoi(targetDay[4:6])
+	if m1 < m2 {
+		return age
+	}
+	if m1 > m2 {
+		return age - 1
+	}
+	d1, _ := strconv.Atoi(birthday[6:8])
+	d2, _ := strconv.Atoi(targetDay[6:8])
+	if d1 < d2 {
+		return age - 1
+	}
+	return age
+}
+
+func TestSimpleAge(t *testing.T) {
+	assert.Equal(t, 6, AgeFromString("20100101", "20161020"))
+	assert.Equal(t, 6, AgeFromString("20100101", "20160101"))
+	assert.Equal(t, 5, AgeFromString("20100101", "20151231"))
+}
+
+func BenchmarkSimpleAge(b *testing.B) {
+	b.StopTimer()
+	f1 := Date(2010, 10, 21, 0, 0, 0, 0, &time.Location{})
+	f2 := Date(2010, 10, 22, 0, 0, 0, 0, &time.Location{})
+	d1 := (f1.String())[0:12]
+	d2 := (f2.String())[0:12]
+	fmt.Println(d1)
+	fmt.Println(d2)
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		AgeFromString(d1, d2)
+	}
+}
+
+func BenchmarkFullerene_GoAge(b *testing.B) {
+	b.StopTimer()
+	t := time.Now().AddDate(0,0,-1)
+	b.StartTimer()
+	for i:=0;i<b.N;i++ {
+		libage.Age(t)
 	}
 }
