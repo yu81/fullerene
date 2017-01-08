@@ -116,3 +116,7 @@ func (fr Fullerene) CurrentAge() int {
 func (fr *Fullerene) String() string {
 	return fr.t.String()
 }
+
+func (fr *Fullerene) Format(layout string) string {
+	return fr.t.Format(layout)
+}
