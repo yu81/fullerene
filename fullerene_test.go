@@ -145,7 +145,7 @@ func Benchmark_Date(b *testing.B) {
 	}
 }
 
-func BenchmarkFullerene_Age(b *testing.B) {
+func Benchmark_Fullerene_Age(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Date(2015, 1, 1, 0, 0, 0, 0, &time.Location{})
 	}
