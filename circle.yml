@@ -1,7 +1,7 @@
 machine:
   pre:
     - |
-      ver="1.7.1"
+      ver="1.7.4"
       curl -o go.tar.gz -sL https://storage.googleapis.com/golang/go${ver}.linux-amd64.tar.gz
       sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go.tar.gz
       sudo chmod a+w /usr/local/go/src/
@@ -14,3 +14,4 @@ machine:
 test:
   override:
     - go test -v -cover -bench=. -benchmem ./...
+    - go tool vet -all -structtags -shadow .
