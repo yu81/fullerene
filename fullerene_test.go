@@ -184,6 +184,20 @@ func TestSimpleAge(t *testing.T) {
 	assert.Equal(t, 5, AgeFromString("20100101", "20151231"))
 }
 
+func TestFullerene_IsHoliday(t *testing.T) {
+	f1 := Date(2017, 1, 22, 0, 0, 0, 0, &time.Location{})
+	assert.True(t, f1.IsHoliday())
+	f2 := Date(2017, 1, 23, 0, 0, 0, 0, &time.Location{})
+	assert.False(t, f2.IsHoliday())
+
+}
+
+func TestFullerene_IsJapanesePublicHoliday(t *testing.T) {
+	for _, d := range JapanesePublicHolidays {
+		assert.True(t, d.IsJapanesePublicHoliday())
+	}
+}
+
 func BenchmarkSimpleAge(b *testing.B) {
 	b.StopTimer()
 	f1 := Date(2010, 10, 21, 0, 0, 0, 0, &time.Location{})
