@@ -200,9 +200,9 @@ func BenchmarkSimpleAge(b *testing.B) {
 
 func BenchmarkFullerene_GoAge(b *testing.B) {
 	b.StopTimer()
-	t := time.Now().AddDate(0,0,-1)
+	t := time.Now().AddDate(0, 0, -1)
 	b.StartTimer()
-	for i:=0;i<b.N;i++ {
+	for i := 0; i < b.N; i++ {
 		libage.Age(t)
 	}
 }
