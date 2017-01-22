@@ -113,6 +113,19 @@ func (fr Fullerene) CurrentAge() int {
 	return fr.Age(Now())
 }
 
+func (fr Fullerene) IsHoliday() bool {
+	switch fr.t.Weekday() {
+	case time.Sunday, time.Saturday:
+		return true
+	default:
+		return false
+	}
+}
+
+func (fr Fullerene) IsWeekday() bool {
+	return !fr.IsHoliday()
+}
+
 func (fr *Fullerene) String() string {
 	return fr.t.String()
 }
