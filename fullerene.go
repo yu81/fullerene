@@ -114,12 +114,26 @@ func (fr Fullerene) CurrentAge() int {
 }
 
 func (fr Fullerene) IsHoliday() bool {
+	if fr.t.Location() == loc && fr.IsJapanesePublicHoliday() {
+		return true
+	}
 	switch fr.t.Weekday() {
 	case time.Sunday, time.Saturday:
 		return true
 	default:
 		return false
 	}
+}
+
+func (fr Fullerene) IsJapanesePublicHoliday() bool {
+	y1, m1, d1 := fr.Date()
+	for _, d := range JapanesePublicHolidays {
+		y2, m2, d2 := d.Date()
+		if y1 == y2 && m1 == m2 && d1 == d2 {
+			return true
+		}
+	}
+	return false
 }
 
 func (fr Fullerene) IsWeekday() bool {
