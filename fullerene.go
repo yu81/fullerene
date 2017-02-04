@@ -14,6 +14,12 @@ func Now() Fullerene {
 	}
 }
 
+func NewFromTime(time time.Time) Fullerene {
+	return Fullerene{
+		t: time,
+	}
+}
+
 func (fr Fullerene) Date() (year int, month time.Month, day int) {
 	return fr.t.Date()
 }
