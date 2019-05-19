@@ -12,11 +12,18 @@ type JapaneseEra struct {
 
 var JapaneseEraList = []JapaneseEra{
 	{
+		Name:         "令和",
+		KanaName:     "レイワ",
+		HiraganaName: "れいわ",
+		Start:        Date(2019, 5, 1, 0, 0, 0, 0, new(time.Location)),
+		End:          Date(9999, 12, 31, 0, 0, 0, 0, new(time.Location)),
+	},
+	{
 		Name:         "平成",
 		KanaName:     "ヘイセイ",
 		HiraganaName: "へいせい",
 		Start:        Date(1989, 1, 8, 0, 0, 0, 0, new(time.Location)),
-		End:          Date(9999, 12, 31, 0, 0, 0, 0, new(time.Location)),
+		End:          Date(2019, 4, 30, 23, 59, 59, 999999999, new(time.Location)),
 	},
 	{
 		Name:         "昭和",
