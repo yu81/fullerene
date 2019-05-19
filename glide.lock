@@ -1,9 +1,11 @@
 hash: 446755499a7980484625361b64a4ab1c61cbb38226347acaa0ff0ba667336d40
-updated: 2016-10-19T14:02:32.753474436+09:00
+updated: 2019-05-19T20:39:27.671248+09:00
 imports: []
 testImports:
+- name: github.com/bearbin/go-age
+  version: 316d0c1e7cd1ecf68e4313ac739dc8a714f63934
 - name: github.com/davecgh/go-spew
-  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+  version: 04cdfd42973bb9c8589fd6a731800cf222fde1a9
   subpackages:
   - spew
 - name: github.com/pmezard/go-difflib
@@ -11,6 +13,6 @@ testImports:
   subpackages:
   - difflib
 - name: github.com/stretchr/testify
-  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
+  version: ffdc059bfe9ce6a4e144ba849dbedead332c6053
   subpackages:
   - assert
